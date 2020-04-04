@@ -1,0 +1,16 @@
+name: Build & Push ecs-exporter chart
+on: push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: goodsmileduck/helm-push-action@v0.1.1
+      env:
+        SOURCE_DIR: '.'
+        CHART_FOLDER: 'matrix'
+        FORCE: 'True'
+        CHARTMUSEUM_URL: 'https://harbor.tools.we-create.io/chartrepo'
+        CHARTMUSEUM_USER: '${{ secrets.CHARTMUSEUM_USER }}'
+        CHARTMUSEUM_PASSWORD: ${{ secrets.CHARTMUSEUM_PASSWORD }}
